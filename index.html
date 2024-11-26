@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integración MetaMask</title>
+    <script>
+        async function connectMetaMask() {
+            // Verifica si MetaMask está instalado
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    // Solicitar cuentas de MetaMask
+                    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+
+                    // Muestra un mensaje de éxito en la misma página
+                    document.getElementById('status').innerHTML = 'Conectado a MetaMask: ' + accounts[0];
+
+                } catch (error) {
+                    // Si ocurre un error, muestra un mensaje
+                    document.getElementById('status').innerHTML = 'Error al conectar MetaMask: ' + error.message;
+                }
+            } else {
+                // Si MetaMask no está instalado, muestra un mensaje y el enlace para instalarlo
+                document.getElementById('status').innerHTML = 'MetaMask no está instalado. <a href="https://metamask.io/download.html" target="_blank">Haz clic aquí para instalar MetaMask</a>';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Integración MetaMask Web</h1>
+    <!-- Botón para conectar MetaMask -->
+    <button onclick="connectMetaMask()">Conectar MetaMask</button>
+
+    <!-- Aquí se muestra el estado de la conexión o el error -->
+    <p id="status">Estado de la conexión...</p>
+</body>
+</html>
